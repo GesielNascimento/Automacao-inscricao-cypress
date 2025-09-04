@@ -2,14 +2,7 @@
 
 Projeto de automação E2E com **Cypress 13** e **BDD (Cucumber/Gherkin)** cobrindo o fluxo de **inscrição em evento** no GK Events.
 
-##  Cenários BDD
-Arquivo: `cypress/e2e/features/inscricao.feature`
 
-- Exibir detalhes de um evento ativo
-- Solicitar login ao tentar inscrever-se sem estar autenticado
-- Inscrição bem-sucedida (usuário autenticado)
-- Cancelar inscrição
-- Impedir inscrição em evento encerrado
 
 ##  Pré-requisitos
 - Node.js 18+
@@ -96,3 +89,13 @@ Feature: Inscrição em Evento
     When abro os detalhes do evento "Maratona Laravel (Encerrado)"
     Then devo ver o status "Encerrado"
     And não devo ver a opção "Inscrever-se"
+
+
+Cenários BDD
+
+
+- Exibir detalhes de um evento ativo
+- Solicitar login ao tentar inscrever-se sem estar autenticado
+- Inscrição bem-sucedida (usuário autenticado)
+- Cancelar inscrição
+- Impedir inscrição em evento encerrado

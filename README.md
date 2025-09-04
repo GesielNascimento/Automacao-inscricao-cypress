@@ -2,7 +2,7 @@
 
 Projeto de automação E2E com **Cypress 13** e **BDD (Cucumber/Gherkin)** cobrindo o fluxo de **inscrição em evento** no GK Events.
 
-## ✅ Cenários BDD
+##  Cenários BDD
 Arquivo: `cypress/e2e/features/inscricao.feature`
 
 - Exibir detalhes de um evento ativo
@@ -11,7 +11,7 @@ Arquivo: `cypress/e2e/features/inscricao.feature`
 - Cancelar inscrição
 - Impedir inscrição em evento encerrado
 
-## 🧱 Pré-requisitos
+##  Pré-requisitos
 - Node.js 18+
 - npm 9+
 - Uma instância do **GK Events** em execução (local ou homolog) com ao menos:
@@ -19,7 +19,7 @@ Arquivo: `cypress/e2e/features/inscricao.feature`
   - Um evento **ativo**: `Workshop React`
   - Um evento **encerrado**: `Maratona Laravel (Encerrado)`
 
-## ⚙️ Configuração
+##  Configuração
 1. Clone e instale as dependências:
    ```bash
    git clone <seu-repo>.git
@@ -34,7 +34,7 @@ Arquivo: `cypress/e2e/features/inscricao.feature`
    - `cypress/pages/*.js` (Page Objects)
    - `cypress/e2e/features/inscricao.feature` (textos esperados)
 
-## ▶️ Como executar
+##  Como executar
 - **Modo interativo (GUI):**
   ```bash
   npm run cy:open
@@ -44,7 +44,7 @@ Arquivo: `cypress/e2e/features/inscricao.feature`
   npm run cy:run
   ```
 
-## 🗂️ Estrutura
+##  Estrutura
 ```
 cypress/
   e2e/
@@ -61,11 +61,38 @@ cypress.config.js
 package.json
 ```
 
-## 💡 Dicas
-- Prefira IDs estáveis nos elementos do GK Events (ex.: `data-testid="btn-inscrever"`).
-- Se usar modais de confirmação, veja `confirmEnrollIfModal()` em `EventDetailsPage.js`.
-- Para ambiente seed, crie usuários e eventos fixos para evitar flutuação dos testes.
 
----
+##  CENARIO BDD
+```gherkin
+Feature: Inscrição em Evento
 
-Feito com ❤️ para seu portfólio de **QA Júnior**.
+  Scenario: Exibir detalhes de um evento ativo
+    Given estou na página inicial pública
+    When abro os detalhes do evento "Workshop React"
+    Then devo ver as informações do evento
+    And devo ver a opção "Inscrever-se"
+
+  Scenario: Solicitar login ao tentar inscrever-se sem autenticação
+    Given estou na página inicial pública
+    When tento me inscrever no evento "Workshop React" sem estar logado
+    Then devo ser redirecionado para a tela de login
+
+  Scenario: Inscrição bem-sucedida
+    Given estou autenticado como "aluno@teste.com" com a senha "senha123"
+    And estou nos detalhes do evento "Workshop React"
+    When confirmo a inscrição
+    Then devo ver a mensagem "Inscrição realizada com sucesso"
+    And o status do evento deve aparecer como "Inscrito"
+
+  Scenario: Cancelar inscrição
+    Given estou autenticado como "aluno@teste.com" com a senha "senha123"
+    And já estou inscrito no evento "Workshop React"
+    When cancelo minha inscrição
+    Then devo ver a mensagem "Inscrição cancelada"
+    And devo ver novamente a opção "Inscrever-se"
+
+  Scenario: Impedir inscrição em evento encerrado
+    Given estou na página inicial pública
+    When abro os detalhes do evento "Maratona Laravel (Encerrado)"
+    Then devo ver o status "Encerrado"
+    And não devo ver a opção "Inscrever-se"

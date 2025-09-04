@@ -91,8 +91,7 @@ Feature: Inscrição em Evento
     And não devo ver a opção "Inscrever-se"
 
 
-Cenários BDD
-
+RESUMO
 
 - Exibir detalhes de um evento ativo
 - Solicitar login ao tentar inscrever-se sem estar autenticado
